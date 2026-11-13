@@ -1,4 +1,4 @@
-name: Build Flutter APK
+name: Build Coloria APK
 on:
   push:
     branches: [ main ]
@@ -17,23 +17,27 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
+      - name: Restore coloring pages
+        run: |
+          mkdir -p assets/pages
+          for f in assets_b64/*.b64; do base64 -d "$f" > "assets/pages/$(basename "$f" .b64)"; done
       - name: Regenerate android scaffolding (icons + gradle wrapper)
         run: |
           cp lib/main.dart /tmp/keep_main.dart
           cp pubspec.yaml /tmp/keep_pubspec.yaml
-          flutter create --project-name flutter_sample --platforms=android .
+          flutter create --project-name coloria --platforms=android .
           cp /tmp/keep_main.dart lib/main.dart
           cp /tmp/keep_pubspec.yaml pubspec.yaml
       - run: flutter pub get
       - run: flutter build apk --release
       - uses: actions/upload-artifact@v4
         with:
-          name: flutter-sample-apk
+          name: coloria-apk
           path: build/app/outputs/flutter-apk/app-release.apk
       - name: Publish APK as a release asset
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          TAG="build-${{ github.run_number }}"
-          gh release create "$TAG" build/app/outputs/flutter-apk/app-release.apk --title "Flutter sample APK $TAG" --notes "Built by GitHub Actions"
+          TAG="coloria-${{ github.run_number }}"
+          gh release create "$TAG" build/app/outputs/flutter-apk/app-release.apk --title "Coloria APK $TAG" --notes "Built by GitHub Actions"
           
