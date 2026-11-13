@@ -1,5 +1,5 @@
 name: coloria
-description: Coloria - Coloring Book and Drawing app by Know Dear
+description: SSC Exam Prep sample by Know Dear
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -31,7 +31,6 @@ dependencies:
   flutter:
     sdk: flutter
   material_ui: ^1.1.0
-  path_provider: ^2.1.5
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -59,8 +58,6 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
-  assets:
-    - assets/pages/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
